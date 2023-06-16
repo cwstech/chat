@@ -1,5 +1,5 @@
 import { OptionTitle } from '@rocket.chat/fuselage';
-import { useTranslation, useRoute, useMethod, useSetModal, useRole, useNavigate } from '@rocket.chat/ui-contexts';
+import { useTranslation, useRoute, useMethod, useSetModal, useRole, useRouter } from '@rocket.chat/ui-contexts';
 import { useQuery } from '@tanstack/react-query';
 import type { FC } from 'react';
 import React from 'react';
@@ -34,7 +34,7 @@ const AdministrationModelList: FC<AdministrationModelListProps> = ({ accountBoxI
 		setModal(<RegisterWorkspaceModal onClose={handleModalClose} />);
 	};
 
-	const navigate = useNavigate();
+	const router = useRouter();
 	const upgradeRoute = useRoute('upgrade');
 	const cloudRoute = useRoute('cloud');
 	const showUpgradeItem = !isLoading && tabType;
@@ -79,7 +79,7 @@ const AdministrationModelList: FC<AdministrationModelListProps> = ({ accountBoxI
 						role='listitem'
 						text={t('Workspace')}
 						onClick={() => {
-							navigate('/admin');
+							router.navigate('/admin');
 							onDismiss();
 						}}
 					/>
@@ -89,7 +89,7 @@ const AdministrationModelList: FC<AdministrationModelListProps> = ({ accountBoxI
 						{accountBoxItems.map((item, key) => {
 							const action = () => {
 								if (item.href) {
-									navigate(item.href);
+									router.navigate(item.href);
 								}
 								onDismiss();
 							};

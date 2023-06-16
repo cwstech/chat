@@ -1,6 +1,6 @@
 import { Button, Field, Modal, Box, PasswordInput, InputBoxSkeleton } from '@rocket.chat/fuselage';
 import type { TranslationKey } from '@rocket.chat/ui-contexts';
-import { useNavigate, useRouteParameter, useUser, useMethod, useTranslation, useLoginWithToken } from '@rocket.chat/ui-contexts';
+import { useRouter, useRouteParameter, useUser, useMethod, useTranslation, useLoginWithToken } from '@rocket.chat/ui-contexts';
 import type { ReactElement } from 'react';
 import { Form } from '@rocket.chat/layout';
 import { useForm } from 'react-hook-form';
@@ -24,7 +24,7 @@ const ResetPasswordPage = (): ReactElement => {
 		token: user ? undefined : token,
 	});
 
-	const navigate = useNavigate();
+	const router = useRouter();
 
 	const changePasswordReason = getChangePasswordReason(user || {});
 
@@ -47,7 +47,7 @@ const ResetPasswordPage = (): ReactElement => {
 			if (token) {
 				const result = await resetPassword(token, data.password);
 				await loginWithToken(result.token);
-				navigate('/home');
+				router.navigate('/home');
 			} else {
 				await setUserPassword(data.password);
 			}
